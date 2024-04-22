@@ -1,9 +1,6 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import selectors from '../selectors';
-import elector from '../elector';
 import { deleteData } from '../helper';
-
-const liising = new elector();
 
 Given('Kasutaja on liisingu kalkulaatori lehel', async () => {
   cy.visit('/');

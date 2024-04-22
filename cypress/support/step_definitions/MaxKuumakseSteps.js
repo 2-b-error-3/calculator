@@ -1,7 +1,5 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import selectors from '../selectors';
-import elector from '../elector';
-import { deleteData } from '../helper';
 
 Given('Kasutaja on kalkulaatori lehel {string}', async (maxKuumakseTabText) => {
   cy.get('a[data-toggle="tab"][href="#max-payment"]').contains(maxKuumakseTabText).click();

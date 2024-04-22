@@ -38,6 +38,10 @@ Ava Cypress
 npx cypress open
 ```
 
-Kirjeldatud Cucumber test stsenaariumid on cypress/e2e kaustast _.feature failidena. Testide samme näeb (CTRL või CMD) ja vajutus tekstil või kaustas cypress/support/step_definitions.
-Testide rapordid on vastavalt formaadile eraldi kaustades cypress/reports/_/
+Kirjeldatud Cucumber test stsenaariumid on cypress/e2e kaustast \_.feature failidena.
+
+Testide samme näeb (CTRL või CMD) ja vajutus tekstil või kaustas cypress/support/step_definitions.
+
+Testide rapordid on vastavalt formaadile eraldi kaustades cypress/reports/\_/
+
 Läbi kukkunud testide ekraanutõmmised on cypress/screenshots/ kaustades ja videod cypress/videos/ kaustades.
