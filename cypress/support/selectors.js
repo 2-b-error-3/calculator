@@ -1,0 +1,15 @@
+export default {
+  hind: '#price',
+  popup: '#acceptPirukas',
+  sisseProtsent: '#initial_percentage',
+  sisseEuro: '#initial',
+  aasta: "[name='years']",
+  kuud: "[name='months']",
+  intress: '#interest_rate',
+  jaakProtsent: '#reminder_percentage',
+  jaakEuro: '#reminder',
+  kuumakse: '.payment',
+  lasteArv: '#dependent-persons',
+  netosissetulek: '#monthly-income',
+  makseKokku: 'tfoot tr td strong',
+};
