@@ -48,9 +48,10 @@ Then('Vara maksumus peab olema suurem kui {int} eurot', async (minHind) => {
     .invoke('val')
     .then((value) => {
       const numericValue = parseInt(value.replace(/\s/g, ''), 10);
-      expect(numericValue).to.be.gt(minHind);
+      expect(numericValue).to.be.gte(minHind);
     });
 });
+
 Then('Liisingu intress peab olema suurem kui {int}', async (minIntress) => {
   cy.get(selectors.intress)
     .invoke('val')

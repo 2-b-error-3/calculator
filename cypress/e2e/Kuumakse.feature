@@ -12,7 +12,7 @@ Feature: Kasutajale kuvatakse liisingu kuumakse vastavalt kasutaja sisestatud an
         When Kasutaja sisestab liisingu perioodi pikkuse aastates "<aasta>" ja kuudes "<kuud>"
         When Kasutaja sisestab liisingu intressi "<intress>" %
         When Kasutaja sisestab jääkväärtuse "<jääkProtsent>" % või "<jääkEuro>" eurodes
-        Then Vara maksumus peab olema suurem kui 7499 eurot
+        Then Vara maksumus peab olema suurem kui 7500 eurot
         Then Liisingu intress peab olema suurem kui 0
         Then Kasutajale kuvatakse "<kuumakse>" eurodes
 
