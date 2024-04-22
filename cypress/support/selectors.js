@@ -12,4 +12,5 @@ export default {
   lasteArv: '#dependent-persons',
   netosissetulek: '#monthly-income',
   makseKokku: 'tfoot tr td strong',
+  tingimused: '#tingimused-ja-hinnakiri',
 };

@@ -6,6 +6,7 @@ Feature: Kasutajale kuvatakse liisingu kuumakse vastavalt kasutaja sisestatud an
         When Kasutaja nõustub küpsiste kasutamisega
         Then Kalkulaatori väljadelt kustutatakse andmed
         When Kasutaja sisestab sõiduki hinna "15000", sissemakse "10" % või sissemakse "NA" eurodes
+        Then Finantseeritav summa peab olema vähemalt 5000 eurot hinnast 15000 arvestades sissemakset 10
         When Kasutaja sisestab liisingu perioodi pikkuse aastates "3" ja kuudes "0"
         When Kasutaja sisestab liisingu intressi "7" %
         When Kasutaja sisestab jääkväärtuse "0" % või "NA" eurodes
@@ -14,6 +15,5 @@ Feature: Kasutajale kuvatakse liisingu kuumakse vastavalt kasutaja sisestatud an
 
     Scenario: Kasutaja sisendab andmed kuumaksu arvutamiseks
         Given Kasutajale kuvatakse "416" eurodes
-        When Kasutaja lahutab tüüptingimuste kogusummast 16656.26 lepingutasu 150 eurot
         When Kasutaja vajutab nupule "Maksegraafik"
-        Then Kasutaja võrdleb tüüptingimuste kogusummat 16506.26 maksegraafiku kogu summaga
+        Then Kasutaja võrdleb tüüptingimuste kogusummat 16656.26 eurot maksegraafiku kogu summaga

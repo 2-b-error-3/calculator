@@ -9,6 +9,7 @@ Feature: Kasutajale kuvatakse liisingu kuumakse vastavalt kasutaja sisestatud an
 
     Scenario Outline: Scenario Outline name: Kasutaja sisendab andmed kuumaksu arvutamiseks
         When Kasutaja sisestab sõiduki hinna "<hind>", sissemakse "<sisseProtsent>" % või sissemakse "<sisseEuro>" eurodes
+        Then Finantseeritav summa peab olema vähemalt 5000 eurot hinnast <hind> arvestades sissemakset <sisseProtsent>
         When Kasutaja sisestab liisingu perioodi pikkuse aastates "<aasta>" ja kuudes "<kuud>"
         When Kasutaja sisestab liisingu intressi "<intress>" %
         When Kasutaja sisestab jääkväärtuse "<jääkProtsent>" % või "<jääkEuro>" eurodes
