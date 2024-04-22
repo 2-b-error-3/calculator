@@ -14,8 +14,5 @@ When('Kasutaja sisestab oma {string}', async (netoPalk) => {
   cy.get(selectors.netosissetulek).type(netoPalk);
 });
 Then('Kasutajale kuvatakse maksimaalse kuumakse {string}', async (tulemus) => {
-  // cy.get(selectors.kuumakse).should('have.text', tulemus);
-  // cy.get(selectors.kuumakse).should('be.visible');
   cy.contains(tulemus).should('be.visible');
-  // cy.get(selectors.kuumakse).contains(tulemus);
 });

@@ -10,10 +10,10 @@ Feature: Kasutajale kuvatakse liisingu kuumakse vastavalt kasutaja sisestatud an
         When Kasutaja sisestab liisingu perioodi pikkuse aastates "3" ja kuudes "0"
         When Kasutaja sisestab liisingu intressi "7" %
         When Kasutaja sisestab jääkväärtuse "0" % või "NA" eurodes
-        Then Vara maksumus peab olema suurem kui 7499 eurot
+        Then Vara maksumus peab olema suurem kui 7500 eurot
         Then Liisingu intress peab olema suurem kui 0
 
     Scenario: Kasutaja sisendab andmed kuumaksu arvutamiseks
-        Given Kasutajale kuvatakse "416" eurodes
+        Given Kontrolli annuiteedi kuumakset, kui hind 15000 eurot, sissemakse 10%, periood 36 kuud, intress 7% ja jääk 0
         When Kasutaja vajutab nupule "Maksegraafik"
-        Then Kasutaja võrdleb tüüptingimuste kogusummat 16656.26 eurot maksegraafiku kogu summaga
+        Then Kasutaja võrdleb tüüptingimuste kogusummat 16506.26 eurot ilma lepingutasuta maksegraafiku kogu summaga

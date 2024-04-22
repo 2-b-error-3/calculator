@@ -1,6 +1,6 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import selectors from '../selectors';
-import { deleteData } from '../helper';
+import { deleteData, arvutaKuumakse } from '../helper';
 
 Given('Kasutaja on liisingu kalkulaatori lehel', async () => {
   cy.visit('/');
@@ -87,7 +87,20 @@ When('Kasutaja vajutab nupule {string}', async (maksegraafik) => {
   });
 });
 
-When('Kasutaja võrdleb tüüptingimuste kogusummat {float} eurot maksegraafiku kogu summaga', async (makseKokku) => {
-  cy.scrollTo('bottom');
-  cy.get(selectors.makseKokku).contains(makseKokku).should('be.visible');
-});
+//hardcoded summa tuleks asendada annuiteediarvutuse ja esimese makse intressiarvutusega
+When(
+  'Kasutaja võrdleb tüüptingimuste kogusummat {float} eurot ilma lepingutasuta maksegraafiku kogu summaga',
+  async (makseKokku) => {
+    cy.scrollTo('bottom');
+    cy.get(selectors.makseKokku).contains(makseKokku).should('be.visible');
+  }
+);
+
+When(
+  'Kontrolli annuiteedi kuumakset, kui hind {float} eurot, sissemakse {float}%, periood {float} kuud, intress {float}% ja jääk {float}',
+  async (hind, sissemakseProtsent, kuud, intress, jääkväärtuse) => {
+    const kuumakse = arvutaKuumakse(hind, sissemakseProtsent, kuud, intress, jääkväärtuse);
+    cy.log('kuumakse', kuumakse.toFixed(2));
+    cy.get(selectors.kuumakse).contains(kuumakse.toFixed(2)).should('be.visible');
+  }
+);
