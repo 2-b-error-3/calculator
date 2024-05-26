@@ -1,23 +1,9 @@
 ## Alustamine
 
-Installi Cypress
+Installi sõltuvused
 
 ```
 npm install --save-dev
-```
-
-Installi Cucumber sõltuvused
-
-```
-npm install @badeball/cypress-cucumber-preprocessor
-
-npm install --save-dev @bahmutov/cypress-esbuild-preprocessor
-```
-
-Installi Typescript cyprrss.config.ts faili jaoks
-
-```
-npm install ts-loader --save-dev
 ```
 
 Jooksuta kõiki Cypress teste
