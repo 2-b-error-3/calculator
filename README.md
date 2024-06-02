@@ -12,7 +12,7 @@ Run all Cypress tests
 npx cypress run
 ```
 
-Run Cypress individual Cypress test using tag from feature file
+Run individual Cypress test using tag from feature file
 
 ```
 npx cypress run -e TAGS='@monthlyPayment'
