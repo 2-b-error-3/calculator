@@ -1,0 +1,8 @@
+{
+  "cucumberautocomplete.steps": ["cypress/support/step_definitions/**/*.js"],
+  "cucumberautocomplete.strictGherkinCompletion": true,
+  "cucumberautocomplete.customParameters": [],
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

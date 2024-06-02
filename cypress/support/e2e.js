@@ -14,15 +14,9 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands';
+import "./commands";
 
-Cypress.on('uncaught:exception', (e) => {
-  if (e.message.includes('cross origin')) {
-    return false;
-  }
-});
-
-Cypress.on('uncaught:exception', (e) => {
+Cypress.on("uncaught:exception", (e) => {
   if (e.message.includes("(reading 'style')")) {
     return false;
   }
@@ -30,7 +24,7 @@ Cypress.on('uncaught:exception', (e) => {
 
 beforeEach(() => {
   cy.then(Cypress.session.clearCurrentSessionData);
-  cy.log('Done');
+  cy.log("Done");
 });
 
 // Alternatively you can use CommonJS syntax:

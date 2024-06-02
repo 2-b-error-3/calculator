@@ -1,21 +1,28 @@
-import selectors from './selectors';
+import selectors from "./selectors";
 
-export function deleteData() {
-  cy.get(selectors.hind).clear();
-  cy.get(selectors.sisseProtsent).clear();
-  // cy.get(selectors.sisseEuro).clear();
-  cy.get(selectors.intress).clear();
-  cy.get(selectors.jaakProtsent).clear();
-  // cy.get(selectors.jaakEuro).clear();
+export function clearData() {
+  cy.get(selectors.summaInput).clear();
+  cy.get(selectors.kuudInput).clear();
 }
 
-export function arvutaKuumakse(hind, sissemakseProtsent, kuud, intress, jääkVäärtus) {
-  const sissemakseEurodes = hind * (sissemakseProtsent / 100);
-  const krediitSumma = hind - sissemakseEurodes;
-  const kuuIntress = intress / (100 * 12);
-  const lugeja = krediitSumma * kuuIntress * Math.pow(1 + kuuIntress, kuud);
-  const nimetaja = Math.pow(1 + kuuIntress, kuud) - 1;
-  const kuumakse = lugeja / nimetaja;
+export function escapeSpecialCharacters(input) {
+  if (input == null) {
+    return null;
+  }
+  return input
+    .replace(/'/g, "''")
+    .replace(/\\/g, "\\\\")
+    .replace(/"/g, '\\"')
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)");
+}
 
-  return kuumakse;
+export function calculateMonthlyPayment(loanAmount, months, interestRateValue) {
+  const monthIntrestRate = interestRateValue / (100 * 12);
+  const numerator =
+    loanAmount * monthIntrestRate * Math.pow(1 + monthIntrestRate, months);
+  const denominator = Math.pow(1 + monthIntrestRate, months) - 1;
+  const monthlyPaymentCalculated = numerator / denominator;
+
+  return monthlyPaymentCalculated;
 }

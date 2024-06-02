@@ -15,7 +15,7 @@ npx cypress run
 Jooksuta Cypress teste tagide valides. Iga testi tagi leiab .feature failist kujul '@kuumakse' cypress/e2e kaustast
 
 ```
-npx cypress run -e TAGS='@kuumakse'
+npx cypress run -e TAGS='@monthlyPayment'
 ```
 
 Ava Cypress

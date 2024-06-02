@@ -6,7 +6,7 @@ import createEsbuildPlugin from "@badeball/cypress-cucumber-preprocessor/esbuild
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'https://www.lhv.ee/et/liising',
+    baseUrl: 'https://taotlus.bigbank.ee/',
     experimentalOriginDependencies: true,
     experimentalModifyObstructiveThirdPartyCode: true,
     scrollBehavior: 'center',
