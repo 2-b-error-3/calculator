@@ -1,33 +1,29 @@
-## Alustamine
+## Starting
 
-Installi sõltuvused
+Install dependencies
 
 ```
 npm install --save-dev
 ```
 
-Jooksuta kõiki Cypress teste
+Run all Cypress tests
 
 ```
 npx cypress run
 ```
 
-Jooksuta Cypress teste tagide valides. Iga testi tagi leiab .feature failist kujul '@kuumakse' cypress/e2e kaustast
+Run Cypress individual Cypress test using tag from feature file
 
 ```
 npx cypress run -e TAGS='@monthlyPayment'
 ```
 
-Ava Cypress
+Open Cypress
 
 ```
 npx cypress open
 ```
 
-Kirjeldatud Cucumber test stsenaariumid on cypress/e2e kaustast \_.feature failidena.
+Test reports in folder cypress/reports/\_/
 
-Testide samme näeb (CTRL või CMD) ja vajutus tekstil või kaustas cypress/support/step_definitions.
-
-Testide rapordid on vastavalt formaadile eraldi kaustades cypress/reports/\_/
-
-Läbi kukkunud testide ekraanutõmmised on cypress/screenshots/ kaustades ja videod cypress/videos/ kaustades.
+Failed test screenshots in cypress/screenshots/ folder and videos in cypress/videos/ folder.
