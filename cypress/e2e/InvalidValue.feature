@@ -7,7 +7,7 @@ Feature: User inserts text as loan amount and period
         Then Defult loan amount value 500 is displayed to the user
         When User inserts period "<loanPeriod>"
         Then Defult loan period value "6" is displayed to the user
-        Then Monthly payment value is between 10 and 5300 euros
+        Then Monthly payment value is between 10 and 5235 euros
 
         Examples:
             | loanAmount                                                | loanPeriod                                    |

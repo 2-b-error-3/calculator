@@ -22,16 +22,20 @@ When("User inserts loan {string}", async (loanAmount) => {
 
 Then(
   "Inserted loan {string} is visible between {int} and {int} euros",
-  async (loanAmount) => {
+  async (loanAmount, minAmount, maxAmount) => {
     cy.get(selectors.summaSlider).should("be.visible");
     let loanAmountFloat = parseFloat(loanAmount);
-    if (loanAmountFloat < 500 && loanAmountFloat >= 0) {
-      cy.get(selectors.summaSlider).should("have.attr", "aria-valuenow", "500");
-    } else if (loanAmountFloat > 30000) {
+    if (loanAmountFloat < minAmount && loanAmountFloat >= 0) {
       cy.get(selectors.summaSlider).should(
         "have.attr",
         "aria-valuenow",
-        "30000"
+        minAmount
+      );
+    } else if (loanAmountFloat > maxAmount) {
+      cy.get(selectors.summaSlider).should(
+        "have.attr",
+        "aria-valuenow",
+        maxAmount
       );
     } else if (loanAmountFloat < 0) {
       loanAmount = loanAmount * -1;
@@ -58,28 +62,39 @@ When("User inserts period {string}", async (loanPeriod) => {
   cy.get(selectors.summaInput).click();
 });
 
-Then("Inserted period {string} is visible", async (loanPeriod) => {
-  // cy.get('div.vue-slider-dot[aria-valuemin="6"]').should(
-  let loanPeriodInt = parseInt(loanPeriod);
-  if (loanPeriodInt < 6 && loanPeriodInt >= 0) {
-    cy.get(selectors.kuudSlider).should("have.attr", "aria-valuetext", "6");
-  } else if (loanPeriodInt > 120) {
-    cy.get(selectors.kuudSlider).should("have.attr", "aria-valuenow", "120");
-  } else if (loanPeriodInt < 0) {
-    loanPeriod = loanPeriod * -1;
-    cy.get(selectors.kuudSlider).should(
-      "have.attr",
-      "aria-valuenow",
-      loanPeriod
-    );
-  } else {
-    cy.get(selectors.kuudSlider).should(
-      "have.attr",
-      "aria-valuetext",
-      loanPeriod
-    );
+Then(
+  "Inserted period {string} is visible between {int} and {int} months",
+  async (loanPeriod, minPeriod, maxPeriod) => {
+    // cy.get('div.vue-slider-dot[aria-valuemin="6"]').should(
+    let loanPeriodInt = parseInt(loanPeriod);
+    if (loanPeriodInt < 6 && loanPeriodInt >= 0) {
+      cy.get(selectors.kuudSlider).should(
+        "have.attr",
+        "aria-valuetext",
+        minPeriod
+      );
+    } else if (loanPeriodInt > maxPeriod) {
+      cy.get(selectors.kuudSlider).should(
+        "have.attr",
+        "aria-valuenow",
+        maxPeriod
+      );
+    } else if (loanPeriodInt < 0) {
+      loanPeriod = loanPeriod * -1;
+      cy.get(selectors.kuudSlider).should(
+        "have.attr",
+        "aria-valuenow",
+        loanPeriod
+      );
+    } else {
+      cy.get(selectors.kuudSlider).should(
+        "have.attr",
+        "aria-valuetext",
+        loanPeriod
+      );
+    }
   }
-});
+);
 
 Then(
   "Monthly payment value is between {int} and {int} euros",

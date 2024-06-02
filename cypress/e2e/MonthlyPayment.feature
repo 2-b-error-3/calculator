@@ -6,16 +6,15 @@ Feature: User can select and insert loan sum and period between valid values
         When User inserts loan "<loanAmount>"
         Then Inserted loan "<loanAmount>" is visible between 500 and 30000 euros
         When User inserts period "<loanPeriod>"
-        Then Inserted period "<loanPeriod>" is visible
-        Then Monthly payment value is between 10 and 5300 euros
+        Then Inserted period "<loanPeriod>" is visible between 6 and 120 months
+        Then Monthly payment value is between 10 and 5235 euros
         When User presses button "JÄTKA"
         Then User is navigated to loan application screen
         And Chosen value "<loanAmount>" is visible on application page
         When User presses on calculator modal
         And Inserted loan "<loanAmount>" is visible between 500 and 30000 euros
-        And Inserted period "<loanPeriod>" is visible
-        Then Monthly payment value is between 10 and 5300 euros
-
+        And Inserted period "<loanPeriod>" is visible between 6 and 120 months
+        Then Monthly payment value is between 10 and 5235 euros
 
         Examples:
             | loanAmount | loanPeriod |
@@ -25,3 +24,4 @@ Feature: User can select and insert loan sum and period between valid values
             | 100        | 2          |
             | 555000     | 300        |
             | -7500      | -25        |
+
