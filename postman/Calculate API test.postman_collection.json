@@ -1,0 +1,701 @@
+{
+	"info": {
+		"_postman_id": "079a3742-345e-4465-9a01-35317b789fa9",
+		"name": "Calculate API test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "35322987"
+	},
+	"item": [
+		{
+			"name": "/calculate monthly payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const currentTestData = JSON.parse(pm.globals.get('currentTestData'));",
+							"const expectedResponse = currentTestData.expectedResponse;",
+							"const jsonResponse = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response matches expected data\", function () {",
+							"    // pm.expect(jsonResponse.totalRepayableAmount).to.eql(expectedResponse.totalRepayableAmount);",
+							"    pm.expect(jsonResponse.monthlyPayment).to.eql(expectedResponse.monthlyPayment);",
+							"    // pm.expect(jsonResponse.apr).to.eql(expectedResponse.apr);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const testData = [",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 1.5,",
+							"        conclusionFee: 75,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 7167.6,",
+							"            monthlyPayment: 116.71,",
+							"            apr: 15.52",
+							"        }",
+							"    },",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 0,",
+							"        conclusionFee: 0,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 7002.6,",
+							"            monthlyPayment: 116.71,",
+							"            apr: 13.1",
+							"        }",
+							"    }",
+							"];",
+							"",
+							"const currentTestIndex = pm.globals.has('currentTestIndex') ? pm.globals.get('currentTestIndex') : 0;",
+							"const currentTestData = testData[currentTestIndex];",
+							"",
+							"pm.globals.set('currentTestData', JSON.stringify(currentTestData));",
+							"pm.globals.set('currentTestIndex', (Number(currentTestIndex) + 1) % testData.length);",
+							"",
+							"pm.variables.set('currency', currentTestData.currency);",
+							"pm.variables.set('productType', currentTestData.productType);",
+							"pm.variables.set('maturity', currentTestData.maturity);",
+							"pm.variables.set('administrationFee', currentTestData.administrationFee);",
+							"pm.variables.set('conclusionFee', currentTestData.conclusionFee);",
+							"pm.variables.set('amount', currentTestData.amount);",
+							"pm.variables.set('monthlyPaymentDay', currentTestData.monthlyPaymentDay);",
+							"pm.variables.set('interestRate', currentTestData.interestRate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currency\": \"{{currency}}\",\n    \"productType\": \"{{productType}}\",\n    \"maturity\": {{maturity}},\n    \"administrationFee\": {{administrationFee}},\n    \"conclusionFee\": {{conclusionFee}},\n    \"amount\": {{amount}},\n    \"monthlyPaymentDay\": {{monthlyPaymentDay}},\n    \"interestRate\": {{interestRate}}\n}\n\n\n"
+				},
+				"url": "https://taotlus.bigbank.ee/api/v1/loan/calculate"
+			},
+			"response": []
+		},
+		{
+			"name": "/calculate administrationFee test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const currentTestData = JSON.parse(pm.globals.get('currentTestData'));",
+							"const expectedResponse = currentTestData.expectedResponse;",
+							"const jsonResponse = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response matches expected data\", function () {",
+							"    pm.expect(jsonResponse.totalRepayableAmount).to.eql(expectedResponse.totalRepayableAmount);",
+							"    pm.expect(jsonResponse.monthlyPayment).to.eql(expectedResponse.monthlyPayment);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const testData = [",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 1.5,",
+							"        conclusionFee: 0,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 6991.05,",
+							"            monthlyPayment: 116.53,",
+							"        }",
+							"    },",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 0,",
+							"        conclusionFee: 0,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 6901.05,",
+							"            monthlyPayment: 115.03,",
+							"        }",
+							"    }",
+							"];",
+							"",
+							"const currentTestIndex = pm.globals.has('currentTestIndex') ? pm.globals.get('currentTestIndex') : 0;",
+							"const currentTestData = testData[currentTestIndex];",
+							"",
+							"pm.globals.set('currentTestData', JSON.stringify(currentTestData));",
+							"pm.globals.set('currentTestIndex', (Number(currentTestIndex) + 1) % testData.length);",
+							"",
+							"pm.variables.set('currency', currentTestData.currency);",
+							"pm.variables.set('productType', currentTestData.productType);",
+							"pm.variables.set('maturity', currentTestData.maturity);",
+							"pm.variables.set('administrationFee', currentTestData.administrationFee);",
+							"pm.variables.set('conclusionFee', currentTestData.conclusionFee);",
+							"pm.variables.set('amount', currentTestData.amount);",
+							"pm.variables.set('monthlyPaymentDay', currentTestData.monthlyPaymentDay);",
+							"pm.variables.set('interestRate', currentTestData.interestRate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currency\": \"{{currency}}\",\n    \"productType\": \"{{productType}}\",\n    \"maturity\": {{maturity}},\n    \"administrationFee\": {{administrationFee}},\n    \"conclusionFee\": {{conclusionFee}},\n    \"amount\": {{amount}},\n    \"monthlyPaymentDay\": {{monthlyPaymentDay}},\n    \"interestRate\": {{interestRate}}\n}\n\n\n"
+				},
+				"url": "https://taotlus.bigbank.ee/api/v1/loan/calculate"
+			},
+			"response": []
+		},
+		{
+			"name": "/calculate conclusionFee test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const currentTestData = JSON.parse(pm.globals.get('currentTestData'));",
+							"const expectedResponse = currentTestData.expectedResponse;",
+							"const jsonResponse = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response matches expected data\", function () {",
+							"    pm.expect(jsonResponse.totalRepayableAmount).to.eql(expectedResponse.totalRepayableAmount);",
+							"    pm.expect(jsonResponse.monthlyPayment).to.eql(expectedResponse.monthlyPayment);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const testData = [",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 0,",
+							"        conclusionFee: 0,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 6901.05,",
+							"            monthlyPayment: 115.03,",
+							"        }",
+							"    },",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 0,",
+							"        conclusionFee: 75,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 6976.05,",
+							"            monthlyPayment: 116.28,",
+							"        }",
+							"    }",
+							"];",
+							"",
+							"const currentTestIndex = pm.globals.has('currentTestIndex') ? pm.globals.get('currentTestIndex') : 0;",
+							"const currentTestData = testData[currentTestIndex];",
+							"",
+							"pm.globals.set('currentTestData', JSON.stringify(currentTestData));",
+							"pm.globals.set('currentTestIndex', (Number(currentTestIndex) + 1) % testData.length);",
+							"",
+							"pm.variables.set('currency', currentTestData.currency);",
+							"pm.variables.set('productType', currentTestData.productType);",
+							"pm.variables.set('maturity', currentTestData.maturity);",
+							"pm.variables.set('administrationFee', currentTestData.administrationFee);",
+							"pm.variables.set('conclusionFee', currentTestData.conclusionFee);",
+							"pm.variables.set('amount', currentTestData.amount);",
+							"pm.variables.set('monthlyPaymentDay', currentTestData.monthlyPaymentDay);",
+							"pm.variables.set('interestRate', currentTestData.interestRate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currency\": \"{{currency}}\",\n    \"productType\": \"{{productType}}\",\n    \"maturity\": {{maturity}},\n    \"administrationFee\": {{administrationFee}},\n    \"conclusionFee\": {{conclusionFee}},\n    \"amount\": {{amount}},\n    \"monthlyPaymentDay\": {{monthlyPaymentDay}},\n    \"interestRate\": {{interestRate}}\n}\n\n\n"
+				},
+				"url": "https://taotlus.bigbank.ee/api/v1/loan/calculate"
+			},
+			"response": []
+		},
+		{
+			"name": "/calculate APR test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const currentTestData = JSON.parse(pm.globals.get('currentTestData'));",
+							"const expectedResponse = currentTestData.expectedResponse;",
+							"const jsonResponse = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response matches expected data\", function () {",
+							"    pm.expect(jsonResponse.apr).to.eql(expectedResponse.apr);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const testData = [",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 0,",
+							"        conclusionFee: 0,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 1,",
+							"        expectedResponse: {",
+							"            apr: 1",
+							"        }",
+							"    },",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 0,",
+							"        conclusionFee: 0,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 10,",
+							"        expectedResponse: {",
+							"            apr: 10",
+							"        }",
+							"    }",
+							"];",
+							"",
+							"const currentTestIndex = pm.globals.has('currentTestIndex') ? pm.globals.get('currentTestIndex') : 0;",
+							"const currentTestData = testData[currentTestIndex];",
+							"",
+							"pm.globals.set('currentTestData', JSON.stringify(currentTestData));",
+							"pm.globals.set('currentTestIndex', (Number(currentTestIndex) + 1) % testData.length);",
+							"",
+							"pm.variables.set('currency', currentTestData.currency);",
+							"pm.variables.set('productType', currentTestData.productType);",
+							"pm.variables.set('maturity', currentTestData.maturity);",
+							"pm.variables.set('administrationFee', currentTestData.administrationFee);",
+							"pm.variables.set('conclusionFee', currentTestData.conclusionFee);",
+							"pm.variables.set('amount', currentTestData.amount);",
+							"pm.variables.set('monthlyPaymentDay', currentTestData.monthlyPaymentDay);",
+							"pm.variables.set('interestRate', currentTestData.interestRate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currency\": \"{{currency}}\",\n    \"productType\": \"{{productType}}\",\n    \"maturity\": {{maturity}},\n    \"administrationFee\": {{administrationFee}},\n    \"conclusionFee\": {{conclusionFee}},\n    \"amount\": {{amount}},\n    \"monthlyPaymentDay\": {{monthlyPaymentDay}},\n    \"interestRate\": {{interestRate}}\n}\n\n\n"
+				},
+				"url": "https://taotlus.bigbank.ee/api/v1/loan/calculate"
+			},
+			"response": []
+		},
+		{
+			"name": "/calculate error message",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const currentTestData = JSON.parse(pm.globals.get('currentTestData'));",
+							"const expectedResponse = currentTestData.expectedResponse;",
+							"const jsonResponse = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response matches expected data\", function () {",
+							"    pm.expect(jsonResponse).to.be.an('array');",
+							"    pm.expect(jsonResponse.length).to.eql(expectedResponse.length);",
+							"",
+							"    jsonResponse.forEach((error, index) => {",
+							"        pm.expect(error.message).to.eql(expectedResponse[index].message);",
+							"    });",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const testData = [",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: \"60\",",
+							"        administrationFee: 1.5,",
+							"        conclusionFee: 75,",
+							"        amount: \"5000\",",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: [",
+							"            { message: \"should be number\" }",
+							"        ]",
+							"    },",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: \"sixty\",",
+							"        administrationFee: 0,",
+							"        conclusionFee: 0,",
+							"        amount: \"five\",",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: [",
+							"            { message: \"should be number\" },",
+							"            { message: \"should be number\" }",
+							"        ]",
+							"    }",
+							"];",
+							"",
+							"const currentTestIndex = pm.globals.has('currentTestIndex') ? pm.globals.get('currentTestIndex') : 0;",
+							"const currentTestData = testData[currentTestIndex];",
+							"",
+							"pm.globals.set('currentTestData', JSON.stringify(currentTestData));",
+							"pm.globals.set('currentTestIndex', (Number(currentTestIndex) + 1) % testData.length);",
+							"",
+							"pm.variables.set('currency', currentTestData.currency);",
+							"pm.variables.set('productType', currentTestData.productType);",
+							"pm.variables.set('maturity', currentTestData.maturity);",
+							"pm.variables.set('administrationFee', currentTestData.administrationFee);",
+							"pm.variables.set('conclusionFee', currentTestData.conclusionFee);",
+							"pm.variables.set('amount', currentTestData.amount);",
+							"pm.variables.set('monthlyPaymentDay', currentTestData.monthlyPaymentDay);",
+							"pm.variables.set('interestRate', currentTestData.interestRate);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currency\": \"{{currency}}\",\n    \"productType\": \"{{productType}}\",\n    \"maturity\": \"{{maturity}}\",\n    \"administrationFee\": {{administrationFee}},\n    \"conclusionFee\": {{conclusionFee}},\n    \"amount\": \"{{amount}}\",\n    \"monthlyPaymentDay\": {{monthlyPaymentDay}},\n    \"interestRate\": {{interestRate}}\n}\n\n\n"
+				},
+				"url": "https://taotlus.bigbank.ee/api/v1/loan/calculate"
+			},
+			"response": []
+		},
+		{
+			"name": "/calculate PMT check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const currentTestData = JSON.parse(pm.globals.get('currentTestData'));",
+							"const expectedResponse = currentTestData.expectedResponse;",
+							"const jsonResponse = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response matches expected data\", function () {",
+							"    pm.expect(jsonResponse.totalRepayableAmount).to.eql(expectedResponse.totalRepayableAmount);",
+							"    pm.expect(jsonResponse.monthlyPayment).to.eql(expectedResponse.monthlyPayment);",
+							"    // pm.expect(jsonResponse.apr).to.eql(expectedResponse.apr);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const testData = [",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 1.5,",
+							"        conclusionFee: 75,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 7006.2,",
+							"        }",
+							"    },",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 0,",
+							"        conclusionFee: 0,",
+							"        amount: 5000,",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 6841.2,",
+							"        }",
+							"    }",
+							"];",
+							"",
+							"function calculateMonthlyPayment(loanAmount, months, interestRateValue) {",
+							"  const monthInterestRate = interestRateValue / (100 * 12);",
+							"  const numerator = loanAmount * monthInterestRate * Math.pow(1 + monthInterestRate, months);",
+							"  const denominator = Math.pow(1 + monthInterestRate, months) - 1;",
+							"  const monthlyPaymentCalculated = numerator / denominator;",
+							"",
+							"  return parseFloat(monthlyPaymentCalculated.toFixed(2));",
+							"}",
+							"",
+							"const currentTestIndex = pm.globals.has('currentTestIndex') ? pm.globals.get('currentTestIndex') : 0;",
+							"const currentTestData = testData[currentTestIndex];",
+							"",
+							"// Calculate monthly payment and add it to the expectedResponse",
+							"currentTestData.expectedResponse.monthlyPayment = calculateMonthlyPayment(currentTestData.amount, currentTestData.maturity, currentTestData.interestRate);",
+							"",
+							"pm.globals.set('currentTestData', JSON.stringify(currentTestData));",
+							"pm.globals.set('currentTestIndex', (Number(currentTestIndex) + 1) % testData.length);",
+							"",
+							"pm.variables.set('currency', currentTestData.currency);",
+							"pm.variables.set('productType', currentTestData.productType);",
+							"pm.variables.set('maturity', currentTestData.maturity);",
+							"pm.variables.set('administrationFee', currentTestData.administrationFee);",
+							"pm.variables.set('conclusionFee', currentTestData.conclusionFee);",
+							"pm.variables.set('amount', currentTestData.amount);",
+							"pm.variables.set('monthlyPaymentDay', currentTestData.monthlyPaymentDay);",
+							"pm.variables.set('interestRate', currentTestData.interestRate);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currency\": \"{{currency}}\",\n    \"productType\": \"{{productType}}\",\n    \"maturity\": {{maturity}},\n    \"administrationFee\": {{administrationFee}},\n    \"conclusionFee\": {{conclusionFee}},\n    \"amount\": {{amount}},\n    \"monthlyPaymentDay\": {{monthlyPaymentDay}},\n    \"interestRate\": {{interestRate}}\n}\n\n\n"
+				},
+				"url": "https://taotlus.bigbank.ee/api/v1/loan/calculate"
+			},
+			"response": []
+		},
+		{
+			"name": "/calculate manual",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const currentTestData = JSON.parse(pm.globals.get('currentTestData'));",
+							"const expectedResponse = currentTestData.expectedResponse;",
+							"const jsonResponse = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							"",
+							"pm.test(\"Response matches expected data\", function () {",
+							"    pm.expect(jsonResponse.totalRepayableAmount).to.eql(expectedResponse.totalRepayableAmount);",
+							"    pm.expect(jsonResponse.monthlyPayment).to.eql(expectedResponse.monthlyPayment);",
+							"    pm.expect(jsonResponse.apr).to.eql(expectedResponse.apr);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const testData = [",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 60,",
+							"        administrationFee: 1.5,",
+							"        conclusionFee: 75,",
+							"        amount: \"<a\",",
+							"        monthlyPaymentDay: 15,",
+							"        interestRate: 13.1,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 7003.56,",
+							"            monthlyPayment: 116.73,",
+							"            apr: 15.52",
+							"        }",
+							"    },",
+							"    {",
+							"        currency: \"EUR\",",
+							"        productType: \"SMALL_LOAN_EE01\",",
+							"        maturity: 48,",
+							"        administrationFee: 2.00,",
+							"        conclusionFee: 50,",
+							"        amount: \"string\",",
+							"        monthlyPaymentDay: 10,",
+							"        interestRate: 12.5,",
+							"        expectedResponse: {",
+							"            totalRepayableAmount: 12855.63,",
+							"            monthlyPayment: 267.83,",
+							"            apr: 13.73",
+							"        }",
+							"    }",
+							"];",
+							"",
+							"const currentTestIndex = pm.globals.has('currentTestIndex') ? pm.globals.get('currentTestIndex') : 0;",
+							"const currentTestData = testData[currentTestIndex];",
+							"",
+							"pm.globals.set('currentTestData', JSON.stringify(currentTestData));",
+							"pm.globals.set('currentTestIndex', (Number(currentTestIndex) + 1) % testData.length);",
+							"",
+							"pm.variables.set('currency', currentTestData.currency);",
+							"pm.variables.set('productType', currentTestData.productType);",
+							"pm.variables.set('maturity', currentTestData.maturity);",
+							"pm.variables.set('administrationFee', currentTestData.administrationFee);",
+							"pm.variables.set('conclusionFee', currentTestData.conclusionFee);",
+							"pm.variables.set('amount', currentTestData.amount);",
+							"pm.variables.set('monthlyPaymentDay', currentTestData.monthlyPaymentDay);",
+							"pm.variables.set('interestRate', currentTestData.interestRate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"currency\": \"EUR\",\n    \"productType\": \"SMALL_LOAN_EE01\",\n    \"maturity\": 60,\n    \"administrationFee\": 0,\n    \"conclusionFee\": 0,\n    \"amount\": 5000,\n    \"monthlyPaymentDay\": 15,\n    \"interestRate\": 13.1\n}\n"
+				},
+				"url": "https://taotlus.bigbank.ee/api/v1/loan/calculate"
+			},
+			"response": []
+		}
+	]
+}
