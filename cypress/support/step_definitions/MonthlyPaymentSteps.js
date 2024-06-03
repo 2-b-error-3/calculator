@@ -7,13 +7,10 @@ let monthlyPaymentValue = null;
 Given("User is on loan calculator page", async () => {
   cy.visit("/");
   cy.get(selectors.summaInput).should("be.visible");
-  //   clearData();
 });
 
 When("User inserts loan {string}", async (loanAmount) => {
-  cy.log("string before handling" + loanAmount);
   loanAmount = escapeSpecialCharacters(loanAmount);
-  cy.log("string after handling" + loanAmount);
   cy.get(selectors.summaInput).clear();
   cy.get(selectors.summaInput).click();
   cy.get(selectors.summaInput).type(loanAmount);
@@ -65,7 +62,6 @@ When("User inserts period {string}", async (loanPeriod) => {
 Then(
   "Inserted period {string} is visible between {int} and {int} months",
   async (loanPeriod, minPeriod, maxPeriod) => {
-    // cy.get('div.vue-slider-dot[aria-valuemin="6"]').should(
     let loanPeriodInt = parseInt(loanPeriod);
     if (loanPeriodInt < 6 && loanPeriodInt >= 0) {
       cy.get(selectors.kuudSlider).should(
@@ -103,14 +99,8 @@ Then(
     cy.get(selectors.kuumakse)
       .invoke("text")
       .then((text) => {
-        cy.log(text);
-        // Clean the string by removing whitespace, € symbol, and commas
         let cleanedString = text.replace(/[^\d.-]/g, "");
-        cy.log(cleanedString);
-        // Convert the cleaned string to a float
         const newMonthlyPaymentFloat = parseFloat(cleanedString, 10);
-
-        // Assert that the value is within the specified range
         expect(newMonthlyPaymentFloat).to.be.within(
           minMontlyPayment,
           maxMonthlyPayment
@@ -120,7 +110,6 @@ Then(
 );
 
 When("User presses button {string}", async (buttonTitle) => {
-  // cy.get(selectors.nuppJätka).should("have.text", buttonTitle).click();
   cy.contains("button", buttonTitle).click();
 });
 
@@ -170,11 +159,7 @@ Then("Monthly payment value is saved for comparison", async () => {
   cy.get(selectors.kuumakse)
     .invoke("text")
     .then((text) => {
-      cy.log(text);
-      // Clean the string by removing whitespace, € symbol, and commas
       let cleanedString = text.replace(/[^\d.-]/g, "");
-      cy.log(cleanedString);
-      // Convert the cleaned string to a float
       monthlyPaymentValue = parseFloat(cleanedString);
     });
 });
@@ -188,10 +173,9 @@ Then(
     cy.get(selectors.kuumakse)
       .invoke("text")
       .then((newMonthlyPayment) => {
-        cy.log("monthly payment" + newMonthlyPayment);
         let cleanedString = newMonthlyPayment.replace(/[\s€,]/g, "");
-        const newMonthlyPaymentFloat = parseFloat(cleanedString, 10); // Convert the aria-valuetext to an integer
-        expect(newMonthlyPaymentFloat).to.be.greaterThan(monthlyPaymentValue); // Compare it with loanAmount
+        const newMonthlyPaymentFloat = parseFloat(cleanedString, 10);
+        expect(newMonthlyPaymentFloat).to.be.greaterThan(monthlyPaymentValue);
       });
   }
 );

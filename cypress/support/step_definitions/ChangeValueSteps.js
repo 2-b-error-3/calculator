@@ -30,8 +30,8 @@ Then(
     cy.get(selectors.summaSlider)
       .invoke("attr", "aria-valuetext")
       .then((newLoanPeriod) => {
-        const newLoanPeriodInt = parseInt(newLoanPeriod, 10); // Convert the aria-valuetext to an integer
-        expect(newLoanPeriodInt).to.be.greaterThan(loanAmount); // Compare it with loanAmount
+        const newLoanPeriodInt = parseInt(newLoanPeriod, 10);
+        expect(newLoanPeriodInt).to.be.greaterThan(loanAmount);
       });
   }
 );
@@ -64,8 +64,8 @@ Then(
     cy.get(selectors.kuudSlider)
       .invoke("attr", "aria-valuetext")
       .then((newLoanPeriod) => {
-        const newLoanPeriodInt = parseInt(newLoanPeriod, 10); // Convert the aria-valuetext to an integer
-        expect(newLoanPeriodInt).to.be.lessThan(loanPeriod); // Compare it with loanAmount
+        const newLoanPeriodInt = parseInt(newLoanPeriod, 10);
+        expect(newLoanPeriodInt).to.be.lessThan(loanPeriod);
       });
   }
 );

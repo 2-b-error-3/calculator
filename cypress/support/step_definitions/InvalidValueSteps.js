@@ -7,8 +7,8 @@ Then(
     cy.get(selectors.summaSlider)
       .invoke("attr", "aria-valuetext")
       .then((loanAmount) => {
-        const newLoanPeriodInt = parseInt(loanAmount, 10); // Convert the aria-valuetext to an integer
-        expect(newLoanPeriodInt).to.be.eq(defaultLoanAmount); // Compare it with loanAmount
+        const newLoanPeriodInt = parseInt(loanAmount, 10);
+        expect(newLoanPeriodInt).to.be.eq(defaultLoanAmount);
       });
   }
 );
